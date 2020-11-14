@@ -1,0 +1,62 @@
+﻿@model (List<Tag> tags, List<News> newses)
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="m-2">
+    <div class="row">
+        <div class="col-2 custom-tab">
+            @foreach (var tag in Model.tags.Where(x => x.ParentId == null))
+            {
+                <div>
+                    <div>
+                        @tag.Title
+                    </div>
+                    <div class="p-2">
+
+                        @foreach (var child in Model.tags.Where(x => x.ParentId == tag.Id))
+                        {
+                            <div class="mt-2">
+                                <div class="tn">
+                                    @child.Title
+                                </div>
+                                <div class="tc">
+                                    <input type="checkbox" />
+                                </div>
+                            </div>
+                            <br />
+
+                        }
+                    </div>
+
+                </div>
+            }
+        </div>
+        <div class="col-9">
+            <div class="row">
+
+
+                @foreach (var news in Model.newses)
+                {
+                    <div class="col-4">
+                        <div class="news-cadr">
+                            <div class="news-title">
+                                @news.Title
+                            </div>
+                            <div class="news-img">
+                                <img src="@news.NewsImages.First().FullPath" />
+                            </div>
+                            <div class="news-short-description">
+                                @news.ShortDescription
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
